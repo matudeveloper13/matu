@@ -1,0 +1,33 @@
+[
+  {
+    "username": "matu",
+    "password": "$2b$10$4KWRkSOLowIEZKxgK4f8C./Z1SiT8sXu8eAr7LUbPoG9TTUpCaOsi",
+    "avatar": "M",
+    "friends": [],
+    "requests": [],
+    "chats": {}
+  },
+  {
+    "username": "matu1",
+    "password": "$2b$10$d6dXeoDDrGAr.IcP3U2Fw.kZJ8Bff0efPj9SjFvNy6TzSxlDMAFLC",
+    "avatar": "M",
+    "friends": [
+      "matu3",
+      "matu1"
+    ],
+    "requests": [],
+    "chats": {}
+  },
+  {
+    "username": "matu3",
+    "password": "$2b$10$4hZwQFJ8lOoErCKgwwGHGud4rpYa3uXXPSR.6A8XP6YbrynjfHO1S",
+    "avatar": "M",
+    "friends": [
+      "matu1"
+    ],
+    "requests": [
+      "matu1"
+    ],
+    "chats": {}
+  }
+]
