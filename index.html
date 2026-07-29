@@ -11,16 +11,12 @@
 
 <style>
 
-
 *{
-
     margin:0;
     padding:0;
     box-sizing:border-box;
     font-family:Arial, Helvetica, sans-serif;
-
 }
-
 
 
 body{
@@ -37,9 +33,13 @@ body{
 
     overflow:hidden;
 
+    transition:.3s;
+
 }
 
 
+
+/* MOVING GRID */
 
 
 body::before{
@@ -53,10 +53,9 @@ body::before{
 
     background-image:
 
-    linear-gradient(#3333 2px, transparent 2px),
+    linear-gradient(#3333 2px,transparent 2px),
 
-    linear-gradient(90deg,#3333 2px, transparent 2px);
-
+    linear-gradient(90deg,#3333 2px,transparent 2px);
 
 
     background-size:50px 50px;
@@ -73,7 +72,6 @@ body::before{
 
 @keyframes gridMove{
 
-
 from{
 
 background-position:0 0;
@@ -87,8 +85,95 @@ background-position:0 50px;
 
 }
 
+}
+
+
+
+
+
+
+
+/* TOP BUTTONS */
+
+
+.discord-button{
+
+position:fixed;
+
+top:20px;
+
+left:20px;
 
 }
+
+
+.discord-button img{
+
+width:55px;
+
+height:55px;
+
+cursor:pointer;
+
+}
+
+
+
+.settings-button{
+
+position:fixed;
+
+top:25px;
+
+left:90px;
+
+font-size:30px;
+
+cursor:pointer;
+
+}
+
+
+
+
+
+
+.settings-popup{
+
+
+display:none;
+
+position:fixed;
+
+
+top:75px;
+
+left:80px;
+
+
+width:220px;
+
+
+background:white;
+
+
+border:3px solid #444;
+
+
+border-radius:12px;
+
+
+padding:15px;
+
+
+z-index:999;
+
+
+}
+
+
+
+
 
 
 
@@ -97,27 +182,31 @@ background-position:0 50px;
 button{
 
 
-    width:100%;
-
-    padding:12px;
-
-    margin-top:12px;
+width:100%;
 
 
-    border:none;
-
-    border-radius:8px;
+padding:10px;
 
 
-    background:#222;
-
-    color:white;
+margin-top:8px;
 
 
-    cursor:pointer;
+border:none;
 
 
-    transition:.15s;
+border-radius:8px;
+
+
+background:#222;
+
+
+color:white;
+
+
+cursor:pointer;
+
+
+transition:.15s;
 
 
 }
@@ -126,11 +215,9 @@ button{
 
 button:hover{
 
+background:#444;
 
-    background:#444;
-
-    transform:translateY(-2px) scale(1.03);
-
+transform:scale(1.03);
 
 }
 
@@ -138,11 +225,10 @@ button:hover{
 
 button:active{
 
-
-    transform:scale(.97);
-
+transform:scale(.97);
 
 }
+
 
 
 
@@ -152,16 +238,19 @@ button:active{
 input{
 
 
-    width:100%;
-
-    padding:12px;
-
-    margin-top:12px;
+width:100%;
 
 
-    border:2px solid #444;
+padding:12px;
 
-    border-radius:8px;
+
+margin-top:10px;
+
+
+border:2px solid #444;
+
+
+border-radius:8px;
 
 
 }
@@ -180,22 +269,22 @@ input{
 .account-box{
 
 
-    width:360px;
+width:360px;
 
 
-    padding:35px;
+padding:35px;
 
 
-    background:white;
+background:white;
 
 
-    border:2px solid #444;
+border:3px solid #444;
 
 
-    border-radius:12px;
+border-radius:12px;
 
 
-    text-align:center;
+text-align:center;
 
 
 }
@@ -214,25 +303,25 @@ input{
 .app{
 
 
-    display:none;
+display:none;
 
 
-    width:900px;
+width:950px;
 
 
-    height:600px;
+height:620px;
 
 
-    background:white;
+background:white;
 
 
-    border:2px solid #444;
+border:3px solid #444;
 
 
-    border-radius:12px;
+border-radius:12px;
 
 
-    display:flex;
+overflow:hidden;
 
 
 }
@@ -251,16 +340,17 @@ input{
 .sidebar{
 
 
-    width:250px;
+width:260px;
 
 
-    padding:20px;
+padding:20px;
 
 
-    border-right:2px solid #444;
+border-right:3px solid #444;
 
 
 }
+
 
 
 
@@ -268,19 +358,20 @@ input{
 .profile{
 
 
-    display:flex;
+display:flex;
 
 
-    align-items:center;
+align-items:center;
 
 
-    gap:15px;
+gap:15px;
 
 
-    margin-bottom:30px;
+margin-bottom:25px;
 
 
 }
+
 
 
 
@@ -288,34 +379,35 @@ input{
 .avatar{
 
 
-    width:55px;
+width:55px;
 
 
-    height:55px;
+height:55px;
 
 
-    border-radius:50%;
+border-radius:50%;
 
 
-    background:#222;
+background:#222;
 
 
-    color:white;
+color:white;
 
 
-    display:flex;
+display:flex;
 
 
-    justify-content:center;
+justify-content:center;
 
 
-    align-items:center;
+align-items:center;
 
 
-    font-size:25px;
+font-size:25px;
 
 
 }
+
 
 
 
@@ -323,38 +415,44 @@ input{
 .friend-list{
 
 
-    height:260px;
+height:300px;
 
 
-    border:2px solid #444;
+border:3px solid #444;
 
 
-    border-radius:10px;
+border-radius:10px;
 
 
-    padding:10px;
+padding:10px;
+
+
+overflow:auto;
 
 
 }
+
+
+
 .friend{
 
 
-    display:flex;
+display:flex;
 
 
-    align-items:center;
+align-items:center;
 
 
-    gap:10px;
+gap:10px;
 
 
-    padding:10px;
+padding:10px;
 
 
-    border-radius:8px;
+border-radius:8px;
 
 
-    cursor:pointer;
+cursor:pointer;
 
 
 }
@@ -364,7 +462,7 @@ input{
 .friend:hover{
 
 
-    background:#eee;
+background:#eee;
 
 
 }
@@ -376,51 +474,40 @@ input{
 .small-avatar{
 
 
-    width:35px;
+width:35px;
 
 
-    height:35px;
+height:35px;
 
 
-    border-radius:50%;
+border-radius:50%;
 
 
-    background:#222;
+background:#222;
 
 
-    color:white;
+color:white;
 
 
-    display:flex;
+display:flex;
 
 
-    justify-content:center;
+justify-content:center;
 
 
-    align-items:center;
+align-items:center;
 
 
 }
-
-
-
-
-
-
-
-
 
 /* CHAT */
 
 
 .chat{
 
+flex:1;
 
-    flex:1;
-
-
-    padding:25px;
-
+padding:25px;
 
 }
 
@@ -428,42 +515,9 @@ input{
 
 .chat-title{
 
+font-size:28px;
 
-    font-size:28px;
-
-
-    margin-bottom:20px;
-
-
-}
-
-
-
-
-
-.empty-chat{
-
-
-    height:420px;
-
-
-    border:2px solid #444;
-
-
-    border-radius:10px;
-
-
-    display:flex;
-
-
-    justify-content:center;
-
-
-    align-items:center;
-
-
-    color:#555;
-
+margin-bottom:15px;
 
 }
 
@@ -472,45 +526,238 @@ input{
 
 
 
+.chat-box{
+
+
+height:420px;
+
+
+border:3px solid #444;
+
+
+border-radius:10px;
+
+
+padding:15px;
+
+
+overflow-y:auto;
+
+
+display:flex;
+
+
+flex-direction:column;
+
+
+}
 
 
 
-/* SIDE PANELS */
+
+
+.message{
+
+
+max-width:70%;
+
+
+padding:10px 15px;
+
+
+margin:8px;
+
+
+border-radius:18px;
+
+
+word-wrap:break-word;
+
+
+}
+
+
+
+
+
+.my-message{
+
+
+background:#222;
+
+
+color:white;
+
+
+align-self:flex-end;
+
+
+}
+
+
+
+
+
+.friend-message{
+
+
+background:#eee;
+
+
+color:black;
+
+
+align-self:flex-start;
+
+
+}
+
+
+
+
+
+
+
+.chat-input{
+
+
+display:flex;
+
+
+gap:8px;
+
+
+margin-top:15px;
+
+
+position:relative;
+
+
+}
+
+
+
+
+
+.chat-input input{
+
+
+flex:1;
+
+
+margin:0;
+
+
+}
+
+
+
+.chat-input button{
+
+
+width:70px;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* EMOJIS */
+
+
+.emoji-box{
+
+
+display:none;
+
+
+position:absolute;
+
+
+bottom:55px;
+
+
+right:80px;
+
+
+background:white;
+
+
+border:3px solid #444;
+
+
+border-radius:12px;
+
+
+padding:10px;
+
+
+font-size:25px;
+
+
+}
+
+
+
+.emoji-box span{
+
+
+cursor:pointer;
+
+
+margin:5px;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* PANELS */
 
 
 .panel{
 
 
-    display:none;
+display:none;
 
 
-    position:fixed;
+position:fixed;
 
 
-    top:50%;
+top:50%;
 
 
-    width:300px;
+width:320px;
 
 
-    background:white;
+background:white;
 
 
-    border:2px solid #444;
+border:3px solid #444;
 
 
-    border-radius:12px;
+border-radius:12px;
 
 
-    padding:25px;
+padding:25px;
 
 
-    z-index:999;
+z-index:100;
 
 
 }
-
-
 
 
 
@@ -518,38 +765,166 @@ input{
 .close{
 
 
-    width:auto;
+width:auto;
 
 
-    float:right;
+float:right;
 
 
-    padding:5px 12px;
+padding:5px 12px;
 
 
 }
-
-
-
 
 
 
 .request{
 
 
-    border:2px solid #444;
+border:2px solid #444;
 
 
-    border-radius:8px;
+border-radius:8px;
 
 
-    padding:12px;
+padding:12px;
 
 
-    margin-top:12px;
+margin-top:12px;
 
 
 }
+
+
+
+
+
+
+
+
+/* DARK MODE */
+
+
+body.dark{
+
+
+background:#121212;
+
+color:white;
+
+}
+
+
+
+
+body.dark::before{
+
+
+background-image:
+
+
+linear-gradient(#ffffff55 2px,transparent 2px),
+
+
+linear-gradient(90deg,#ffffff55 2px,transparent 2px);
+
+
+}
+
+
+
+
+
+body.dark .account-box,
+
+body.dark .app,
+
+body.dark .panel,
+
+body.dark .settings-popup{
+
+
+background:#20232a;
+
+color:white;
+
+border-color:#555;
+
+
+}
+
+
+
+
+
+
+body.dark input{
+
+
+background:#101216;
+
+color:white;
+
+border-color:#555;
+
+
+}
+
+
+
+
+
+
+
+body.dark button{
+
+
+background:#111;
+
+
+}
+
+
+
+body.dark button:hover{
+
+
+background:#333;
+
+
+}
+
+
+
+
+
+
+body.dark .friend:hover{
+
+
+background:#333;
+
+
+}
+
+
+
+
+
+
+
+body.dark .friend-message{
+
+
+background:#333;
+
+color:white;
+
+}
+
+
+
+
 
 
 
@@ -561,7 +936,72 @@ input{
 
 
 
+
 <body>
+
+
+
+
+
+
+
+
+<!-- DISCORD -->
+
+
+<a class="discord-button" href="https://discord.gg/rjQTCETjQF" target="_blank">
+
+<img src="discord.png">
+
+</a>
+
+
+
+
+
+
+
+
+<!-- SETTINGS -->
+
+
+<div class="settings-button" onclick="openSettings()">
+
+⚙️
+
+</div>
+
+
+
+
+
+
+<div class="settings-popup" id="settingsPopup">
+
+
+<h3>Settings</h3>
+
+
+<button onclick="darkMode()">
+
+🌙 Dark Mode
+
+</button>
+
+
+
+<button onclick="lightMode()">
+
+☀️ Light Mode
+
+</button>
+
+
+
+</div>
+
+
+
 
 
 
@@ -574,16 +1014,11 @@ input{
 <div class="account-box" id="loginBox">
 
 
-<h1>
-
-Sign In
-
-</h1>
+<h1>Sign In</h1>
 
 
 
 <input id="username" placeholder="Username">
-
 
 
 <input id="password" type="password" placeholder="Password">
@@ -600,13 +1035,11 @@ Login
 
 
 
-
 <button onclick="register()">
 
 Sign Up
 
 </button>
-
 
 
 
@@ -625,7 +1058,12 @@ Sign Up
 
 
 
-<!-- MAIN APP -->
+
+
+
+
+
+<!-- APP -->
 
 
 <div class="app" id="app">
@@ -634,9 +1072,8 @@ Sign Up
 
 
 
+
 <div class="sidebar">
-
-
 
 
 
@@ -650,9 +1087,6 @@ Sign Up
 </div>
 
 
-
-
-
 <b id="displayName">
 
 User
@@ -660,9 +1094,7 @@ User
 </b>
 
 
-
 </div>
-
 
 
 
@@ -674,7 +1106,6 @@ User
 Friends
 
 </h3>
-
 
 
 
@@ -716,17 +1147,6 @@ Friend Requests
 
 
 
-<button onclick="openFriends()">
-
-Friends Tab
-
-</button>
-
-
-
-
-
-
 <button onclick="logout()">
 
 Logout
@@ -736,7 +1156,13 @@ Logout
 
 
 
+
+
+
 </div>
+
+
+
 
 
 
@@ -749,7 +1175,8 @@ Logout
 <div class="chat">
 
 
-<h2 class="chat-title">
+
+<h2 class="chat-title" id="chatTitle">
 
 Chat
 
@@ -758,16 +1185,11 @@ Chat
 
 
 
-<div class="empty-chat" id="chatBox">
 
+<div class="chat-box" id="chatBox">
 
 Select a friend to start chatting
 
-
-</div>
-
-
-
 </div>
 
 
@@ -776,6 +1198,72 @@ Select a friend to start chatting
 
 
 
+<div class="chat-input">
+
+
+
+<input id="messageInput" placeholder="Type a message...">
+
+
+
+
+
+<button onclick="openEmoji()">
+
+😀
+
+</button>
+
+
+
+
+<button onclick="sendMessage()">
+
+Send
+
+</button>
+
+
+
+
+
+
+
+<div class="emoji-box" id="emojiBox">
+
+
+<span onclick="addEmoji('😀')">😀</span>
+
+<span onclick="addEmoji('😂')">😂</span>
+
+<span onclick="addEmoji('❤️')">❤️</span>
+
+<span onclick="addEmoji('🔥')">🔥</span>
+
+<span onclick="addEmoji('👍')">👍</span>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
 </div>
 
 
@@ -786,7 +1274,10 @@ Select a friend to start chatting
 
 
 
-<!-- ADD FRIEND PANEL -->
+
+
+
+<!-- ADD FRIEND -->
 
 
 <div class="panel" id="addPanel">
@@ -800,7 +1291,6 @@ X
 
 
 
-
 <h2>
 
 Add Friend
@@ -809,10 +1299,7 @@ Add Friend
 
 
 
-
 <input id="friendUsername" placeholder="Username">
-
-
 
 
 
@@ -821,8 +1308,6 @@ Add Friend
 Send Request
 
 </button>
-
-
 
 
 
@@ -839,8 +1324,7 @@ Send Request
 
 
 
-
-<!-- REQUEST PANEL -->
+<!-- REQUESTS -->
 
 
 <div class="panel" id="requestPanel">
@@ -851,8 +1335,6 @@ Send Request
 X
 
 </button>
-
-
 
 
 
@@ -867,50 +1349,8 @@ Friend Requests
 
 <div id="requests">
 
-
 </div>
 
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- FRIENDS PANEL -->
-
-
-<div class="panel" id="friendsPanel">
-
-
-<button class="close" onclick="closePanels()">
-
-X
-
-</button>
-
-
-
-
-
-<h2>
-
-Friends
-
-</h2>
-
-
-
-
-<div id="friends">
-
-
-</div>
 
 
 
@@ -918,60 +1358,11 @@ Friends
 <script>
 
 
-let currentUser = "";
+let currentUser="";
+let currentFriend="";
 
-let requestTimer;
-
-
-
-
-
-
-
-
-// KEEP LOGIN AFTER REFRESH
-
-
-window.onload=function(){
-
-
-    let savedUser=localStorage.getItem("username");
-
-
-
-    if(savedUser){
-
-
-        currentUser=savedUser;
-
-
-
-        loginBox.style.display="none";
-
-
-        app.style.display="flex";
-
-
-
-        displayName.innerText=savedUser;
-
-
-        avatar.innerText=savedUser[0].toUpperCase();
-
-
-
-        startRequestChecker();
-
-
-
-        loadFriends();
-
-
-
-    }
-
-
-};
+let chatInterval;
+let updateInterval;
 
 
 
@@ -979,61 +1370,105 @@ window.onload=function(){
 
 
 
+// =====================
+// SETTINGS
+// =====================
 
 
+function openSettings(){
+
+if(settingsPopup.style.display==="block"){
+
+settingsPopup.style.display="none";
+
+}
+
+else{
+
+settingsPopup.style.display="block";
+
+}
+
+}
+
+
+
+function darkMode(){
+
+document.body.classList.add("dark");
+
+localStorage.setItem("theme","dark");
+
+}
+
+
+
+function lightMode(){
+
+document.body.classList.remove("dark");
+
+localStorage.setItem("theme","light");
+
+}
+
+
+
+
+if(localStorage.getItem("theme")==="dark"){
+
+document.body.classList.add("dark");
+
+}
+
+
+
+
+
+
+
+
+
+// =====================
 // REGISTER
+// =====================
 
 
 async function register(){
 
 
+let username=document.getElementById("username").value.trim();
 
-    let username=document.getElementById("username").value;
-
-
-    let password=document.getElementById("password").value;
+let password=document.getElementById("password").value;
 
 
 
+let res=await fetch("/register",{
 
-    let response=await fetch("/register",{
+method:"POST",
 
+headers:{
 
-        method:"POST",
+"Content-Type":"application/json"
 
+},
 
-        headers:{
+body:JSON.stringify({
 
+username,
 
-            "Content-Type":"application/json"
+password
 
+})
 
-        },
-
-
-        body:JSON.stringify({
-
-
-            username,
-
-            password
-
-
-        })
+});
 
 
 
-    });
+let data=await res.json();
 
 
 
-
-    let data=await response.json();
-
-
-
-    message.innerText=data.message;
-
+message.innerText=data.message;
 
 
 }
@@ -1046,109 +1481,95 @@ async function register(){
 
 
 
+// =====================
 // LOGIN
+// =====================
 
 
 async function login(){
 
 
+let username=document.getElementById("username").value.trim();
 
-    let username=document.getElementById("username").value;
 
+let password=document.getElementById("password").value;
 
-    let password=document.getElementById("password").value;
 
 
+let res=await fetch("/login",{
 
+method:"POST",
 
+headers:{
 
+"Content-Type":"application/json"
 
+},
 
-    let response=await fetch("/login",{
+body:JSON.stringify({
 
+username,
 
-        method:"POST",
+password
 
+})
 
-        headers:{
+});
 
 
-            "Content-Type":"application/json"
 
+let data=await res.json();
 
-        },
 
 
-        body:JSON.stringify({
 
+if(data.success){
 
-            username,
 
-            password
+currentUser=data.user.username;
 
 
-        })
 
+loginBox.style.display="none";
 
+app.style.display="flex";
 
-    });
 
 
+displayName.innerText=currentUser;
 
+avatar.innerText=data.user.avatar;
 
 
 
-    let data=await response.json();
+loadFriends();
 
+loadRequests();
 
 
 
 
-    if(data.success){
+updateInterval=setInterval(()=>{
 
 
+loadFriends();
 
-        currentUser=data.user.username;
+loadRequests();
 
 
+},3000);
 
-        localStorage.setItem(
-            "username",
-            currentUser
-        );
 
 
+}
 
-        loginBox.style.display="none";
+else{
 
 
-        app.style.display="flex";
+message.innerText=data.message;
 
 
-
-        avatar.innerText=data.user.avatar;
-
-
-        displayName.innerText=currentUser;
-
-
-
-        startRequestChecker();
-
-
-        loadFriends();
-
-
-
-    }
-
-    else{
-
-
-        message.innerText=data.message;
-
-
-    }
+}
 
 
 
@@ -1162,20 +1583,46 @@ async function login(){
 
 
 
+// =====================
 // LOGOUT
+// =====================
 
 
 function logout(){
 
 
+currentUser="";
 
-    localStorage.removeItem("username");
-
-
-    clearInterval(requestTimer);
+currentFriend="";
 
 
-    location.reload();
+
+clearInterval(chatInterval);
+
+clearInterval(updateInterval);
+
+
+
+closePanels();
+
+
+
+emojiBox.style.display="none";
+
+
+
+app.style.display="none";
+
+
+loginBox.style.display="block";
+
+
+
+chatBox.innerHTML="Select a friend to start chatting";
+
+
+chatTitle.innerText="Chat";
+
 
 
 }
@@ -1188,23 +1635,45 @@ function logout(){
 
 
 
-// OPEN PANELS
+
+
+// =====================
+// PANELS
+// =====================
+
+
+function closePanels(){
+
+
+addPanel.style.display="none";
+
+
+requestPanel.style.display="none";
+
+
+settingsPopup.style.display="none";
+
+
+}
+
+
+
+
 
 
 function openAddFriend(){
 
 
-    closePanels();
+closePanels();
 
 
-
-    addPanel.style.display="block";
-
-
-    addPanel.style.left="20px";
+addPanel.style.display="block";
 
 
-    addPanel.style.transform="translateY(-50%)";
+addPanel.style.left="20px";
+
+
+addPanel.style.transform="translateY(-50%)";
 
 
 }
@@ -1217,72 +1686,19 @@ function openAddFriend(){
 function openRequests(){
 
 
-
-    closePanels();
-
+closePanels();
 
 
-    requestPanel.style.display="block";
+requestPanel.style.display="block";
 
 
-    requestPanel.style.right="20px";
+requestPanel.style.right="20px";
 
 
-    requestPanel.style.transform="translateY(-50%)";
+requestPanel.style.transform="translateY(-50%)";
 
 
-
-    loadRequests();
-
-
-
-}
-
-
-
-
-
-
-
-function openFriends(){
-
-
-
-    closePanels();
-
-
-
-    friendsPanel.style.display="block";
-
-
-    friendsPanel.style.left="20px";
-
-
-    friendsPanel.style.transform="translateY(-50%)";
-
-
-
-    loadFriends();
-
-
-
-}
-
-
-
-
-
-
-function closePanels(){
-
-
-    addPanel.style.display="none";
-
-
-    requestPanel.style.display="none";
-
-
-    friendsPanel.style.display="none";
+loadRequests();
 
 
 }
@@ -1295,60 +1711,65 @@ function closePanels(){
 
 
 
-// SEND FRIEND REQUEST
+// =====================
+// SEND REQUEST
+// =====================
 
 
 async function sendRequest(){
 
 
-
-    let username=document.getElementById("friendUsername").value;
-
+let to=friendUsername.value.trim();
 
 
 
-    let response=await fetch("/send-request",{
+if(to===""){
+
+friendResult.innerText="Enter username";
+
+return;
+
+}
 
 
 
-        method:"POST",
+let res=await fetch("/send-request",{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+from:currentUser,
+
+to
+
+})
+
+});
 
 
 
-        headers:{
-
-
-            "Content-Type":"application/json"
-
-
-        },
+let data=await res.json();
 
 
 
-        body:JSON.stringify({
+if(data.success){
 
+friendResult.innerText="✅ Request sent!";
 
-            from:currentUser,
+}
 
+else{
 
-            to:username
+friendResult.innerText="❌ "+data.message;
 
-
-        })
-
-
-
-    });
-
-
-
-
-
-    let data=await response.json();
-
-
-
-    friendResult.innerText=data.message;
+}
 
 
 
@@ -1362,163 +1783,99 @@ async function sendRequest(){
 
 
 
-// REQUEST AUTO CHECK
-
-
-function startRequestChecker(){
 
 
 
-    if(requestTimer)
-
-        clearInterval(requestTimer);
-
-
-
-
-
-    requestTimer=setInterval(()=>{
-
-
-        if(currentUser){
-
-
-            loadRequests();
-
-
-        }
-
-
-
-    },3000);
-
-
-
-}
-
-
-
-
-
-
-
-
-
+// =====================
 // LOAD REQUESTS
+// =====================
 
 
 async function loadRequests(){
 
 
+if(!currentUser)
+return;
 
-    if(!currentUser)return;
 
 
+let res=await fetch("/get-requests",{
 
+method:"POST",
 
+headers:{
 
-    let response=await fetch("/get-requests",{
+"Content-Type":"application/json"
 
+},
 
-        method:"POST",
+body:JSON.stringify({
 
+username:currentUser
 
-        headers:{
+})
 
+});
 
-            "Content-Type":"application/json"
 
 
-        },
+let data=await res.json();
 
 
-        body:JSON.stringify({
 
+requests.innerHTML="";
 
-            username:currentUser
 
 
-        })
+if(!data.requests || data.requests.length===0){
 
 
-    });
+requests.innerText="No requests";
 
 
+return;
 
 
+}
 
-    let data=await response.json();
 
 
+data.requests.forEach(req=>{
 
 
+let div=document.createElement("div");
 
-    requests.innerHTML="";
 
+div.className="request";
 
 
 
+div.innerHTML=`
 
-    if(!data.requests || data.requests.length===0){
+<b>${req.username}</b>
 
+<button onclick="acceptRequest('${req.username}')">
 
-        requests.innerHTML="<p>No requests</p>";
+Accept
 
+</button>
 
-        return;
 
+<button onclick="declineRequest('${req.username}')">
 
-    }
+Decline
 
+</button>
 
+`;
 
 
 
+requests.appendChild(div);
 
-    data.requests.forEach(user=>{
 
 
-
-        requests.innerHTML+=`
-
-
-        <div class="request">
-
-
-        <div class="small-avatar">
-
-        ${user.avatar}
-
-        </div>
-
-
-        <b>${user.username}</b>
-
-
-
-        <button onclick="acceptRequest('${user.username}')">
-
-        Accept
-
-        </button>
-
-
-
-        <button onclick="declineRequest('${user.username}')">
-
-        Decline
-
-        </button>
-
-
-        </div>
-
-
-        `;
-
-
-    });
-
+});
 
 
 }
@@ -1529,53 +1886,36 @@ async function loadRequests(){
 
 
 
-
-
-// ACCEPT REQUEST
 
 
 async function acceptRequest(user){
 
 
+await fetch("/accept-request",{
 
-    await fetch("/accept-request",{
+method:"POST",
 
+headers:{
 
+"Content-Type":"application/json"
 
-        method:"POST",
+},
 
+body:JSON.stringify({
 
-        headers:{
+username:currentUser,
 
+requester:user
 
-            "Content-Type":"application/json"
+})
 
-
-        },
-
-
-        body:JSON.stringify({
-
-
-            username:currentUser,
-
-
-            requester:user
-
-
-        })
+});
 
 
 
-    });
+loadRequests();
 
-
-
-    loadRequests();
-
-
-    loadFriends();
-
+loadFriends();
 
 
 }
@@ -1585,53 +1925,34 @@ async function acceptRequest(user){
 
 
 
-
-
-
-// DECLINE REQUEST
 
 
 async function declineRequest(user){
 
 
+await fetch("/decline-request",{
 
-    await fetch("/decline-request",{
+method:"POST",
 
+headers:{
 
+"Content-Type":"application/json"
 
-        method:"POST",
+},
 
+body:JSON.stringify({
 
-        headers:{
+username:currentUser,
 
+requester:user
 
-            "Content-Type":"application/json"
+})
 
-
-        },
-
-
-        body:JSON.stringify({
-
-
-            username:currentUser,
-
-
-            requester:user
-
-
-        })
+});
 
 
 
-    });
-
-
-
-
-
-    loadRequests();
-
+loadRequests();
 
 
 }
@@ -1644,112 +1965,112 @@ async function declineRequest(user){
 
 
 
-// LOAD FRIENDS
+// =====================
+// FRIENDS
+// =====================
 
 
 async function loadFriends(){
 
 
+if(!currentUser)
+return;
 
-    if(!currentUser)return;
 
 
+let res=await fetch("/get-friends",{
 
+method:"POST",
 
+headers:{
 
-    let response=await fetch("/get-friends",{
+"Content-Type":"application/json"
 
+},
 
+body:JSON.stringify({
 
-        method:"POST",
+username:currentUser
 
+})
 
+});
 
-        headers:{
 
 
-            "Content-Type":"application/json"
+let data=await res.json();
 
 
-        },
 
+friendList.innerHTML="";
 
 
-        body:JSON.stringify({
 
+if(!data.friends || data.friends.length===0){
 
-            username:currentUser
+friendList.innerText="No friends yet";
 
+return;
 
-        })
+}
 
 
-    });
 
 
 
+let shown=[];
 
 
-    let data=await response.json();
 
+data.friends.forEach(friend=>{
 
 
+if(friend.username===currentUser)
+return;
 
 
-    friends.innerHTML="";
 
+if(shown.includes(friend.username))
+return;
 
 
 
+shown.push(friend.username);
 
-    if(!data.friends || data.friends.length===0){
 
 
 
-        friends.innerHTML="<p>No friends yet</p>";
+let div=document.createElement("div");
 
 
-        return;
+div.className="friend";
 
 
-    }
 
+div.innerHTML=`
 
+<div class="small-avatar">
 
+${friend.avatar}
 
+</div>
 
 
-    data.friends.forEach(friend=>{
+${friend.username}
 
+`;
 
 
-        friends.innerHTML+=`
 
+div.onclick=()=>openChat(friend.username);
 
 
-        <div class="friend" onclick="openChat('${friend.username}')">
 
+friendList.appendChild(div);
 
-            <div class="small-avatar">
 
-            ${friend.avatar}
 
-            </div>
-
-
-
-            <b>${friend.username}</b>
-
-
-        </div>
-
-
-
-        `;
-
-
-
-    });
+});
 
 
 
@@ -1763,39 +2084,237 @@ async function loadFriends(){
 
 
 
-// OPEN CHAT
+// =====================
+// CHAT
+// =====================
 
 
-function openChat(username){
+function openChat(friend){
 
 
-
-    closePanels();
-
+currentFriend=friend;
 
 
-    chatBox.innerHTML=`
-
-
-
-    <h2>
-
-    Chat with ${username}
-
-    </h2>
+chatTitle.innerText=friend;
 
 
 
-    <p>
-
-    Chat system coming next 🚀
-
-    </p>
+loadMessages();
 
 
 
-    `;
+clearInterval(chatInterval);
 
+
+
+chatInterval=setInterval(()=>{
+
+
+loadMessages();
+
+
+},2000);
+
+
+}
+
+
+
+
+
+
+
+
+async function sendMessage(){
+
+
+if(!currentFriend)
+return;
+
+
+
+let text=messageInput.value.trim();
+
+
+
+if(text==="")
+return;
+
+
+
+await fetch("/send-message",{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+from:currentUser,
+
+to:currentFriend,
+
+message:text
+
+})
+
+});
+
+
+
+messageInput.value="";
+
+
+
+loadMessages();
+
+
+
+}
+
+
+
+
+
+
+
+
+messageInput.addEventListener("keydown",(e)=>{
+
+
+if(e.key==="Enter"){
+
+sendMessage();
+
+}
+
+
+});
+
+
+
+
+
+
+
+
+async function loadMessages(){
+
+
+if(!currentFriend)
+return;
+
+
+
+let res=await fetch("/get-messages",{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+user:currentUser,
+
+friend:currentFriend
+
+})
+
+});
+
+
+
+let data=await res.json();
+
+
+
+chatBox.innerHTML="";
+
+
+
+data.messages.forEach(msg=>{
+
+
+let div=document.createElement("div");
+
+
+
+div.className=
+
+msg.sender===currentUser
+
+?
+
+"message my-message"
+
+:
+
+"message friend-message";
+
+
+
+div.innerText=msg.message;
+
+
+
+chatBox.appendChild(div);
+
+
+
+});
+
+
+
+chatBox.scrollTop=chatBox.scrollHeight;
+
+
+}
+
+
+
+
+
+
+
+
+
+// =====================
+// EMOJIS
+// =====================
+
+
+function openEmoji(){
+
+
+if(emojiBox.style.display==="block"){
+
+emojiBox.style.display="none";
+
+}
+
+else{
+
+emojiBox.style.display="block";
+
+}
+
+
+}
+
+
+
+function addEmoji(e){
+
+
+messageInput.value+=e;
 
 
 }
@@ -1803,8 +2322,3 @@ function openChat(username){
 
 
 </script>
-
-
-</body>
-
-</html>

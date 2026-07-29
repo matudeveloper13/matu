@@ -3,9 +3,20 @@
     "username": "matu",
     "password": "$2b$10$4KWRkSOLowIEZKxgK4f8C./Z1SiT8sXu8eAr7LUbPoG9TTUpCaOsi",
     "avatar": "M",
-    "friends": [],
+    "friends": [
+      "matu1"
+    ],
     "requests": [],
-    "chats": {}
+    "chats": {
+      "matu1": [
+        {
+          "sender": "matu",
+          "message": "yoyo",
+          "time": 1785261797790
+        }
+      ]
+    },
+    "sentRequests": []
   },
   {
     "username": "matu1",
@@ -13,21 +24,222 @@
     "avatar": "M",
     "friends": [
       "matu3",
-      "matu1"
+      "matu1",
+      "matu"
     ],
     "requests": [],
-    "chats": {}
+    "chats": {
+      "matu3": [
+        {
+          "sender": "matu3",
+          "message": "hi!",
+          "time": 1785259255023
+        },
+        {
+          "sender": "matu3",
+          "message": "hehey",
+          "time": 1785259981433
+        },
+        {
+          "sender": "matu3",
+          "message": "🔥🔥",
+          "time": 1785259983789
+        },
+        {
+          "sender": "matu1",
+          "message": "yoo",
+          "time": 1785260002529
+        },
+        {
+          "sender": "matu1",
+          "message": "😂😂😂",
+          "time": 1785260006145
+        },
+        {
+          "sender": "matu3",
+          "message": "yo",
+          "time": 1785260214567
+        },
+        {
+          "sender": "matu3",
+          "message": "❤️❤️",
+          "time": 1785260217168
+        },
+        {
+          "sender": "matu3",
+          "message": "my nigga",
+          "time": 1785260221211
+        },
+        {
+          "sender": "matu3",
+          "message": "YO LETS DO A BACKFLIP",
+          "time": 1785260407253
+        },
+        {
+          "sender": "matu1",
+          "message": "oh heck no",
+          "time": 1785260423412
+        },
+        {
+          "sender": "matu3",
+          "message": "HEY",
+          "time": 1785260786733
+        },
+        {
+          "sender": "matu3",
+          "message": "👍",
+          "time": 1785260792538
+        },
+        {
+          "sender": "matu3",
+          "message": "yo",
+          "time": 1785261752283
+        },
+        {
+          "sender": "matu1",
+          "message": "stfu",
+          "time": 1785261764133
+        },
+        {
+          "sender": "matu1",
+          "message": "🔥🔥🔥",
+          "time": 1785261767170
+        }
+      ],
+      "matu": [
+        {
+          "sender": "matu",
+          "message": "yoyo",
+          "time": 1785261797790
+        }
+      ]
+    },
+    "sentRequests": []
   },
   {
     "username": "matu3",
     "password": "$2b$10$4hZwQFJ8lOoErCKgwwGHGud4rpYa3uXXPSR.6A8XP6YbrynjfHO1S",
     "avatar": "M",
     "friends": [
-      "matu1"
+      "matu1",
+      "matu5"
     ],
-    "requests": [
-      "matu1"
+    "requests": [],
+    "chats": {
+      "matu1": [
+        {
+          "sender": "matu3",
+          "message": "hi!",
+          "time": 1785259255023
+        },
+        {
+          "sender": "matu3",
+          "message": "hehey",
+          "time": 1785259981433
+        },
+        {
+          "sender": "matu3",
+          "message": "🔥🔥",
+          "time": 1785259983789
+        },
+        {
+          "sender": "matu1",
+          "message": "yoo",
+          "time": 1785260002529
+        },
+        {
+          "sender": "matu1",
+          "message": "😂😂😂",
+          "time": 1785260006145
+        },
+        {
+          "sender": "matu3",
+          "message": "yo",
+          "time": 1785260214567
+        },
+        {
+          "sender": "matu3",
+          "message": "❤️❤️",
+          "time": 1785260217168
+        },
+        {
+          "sender": "matu3",
+          "message": "my nigga",
+          "time": 1785260221211
+        },
+        {
+          "sender": "matu3",
+          "message": "YO LETS DO A BACKFLIP",
+          "time": 1785260407253
+        },
+        {
+          "sender": "matu1",
+          "message": "oh heck no",
+          "time": 1785260423412
+        },
+        {
+          "sender": "matu3",
+          "message": "HEY",
+          "time": 1785260786733
+        },
+        {
+          "sender": "matu3",
+          "message": "👍",
+          "time": 1785260792538
+        },
+        {
+          "sender": "matu3",
+          "message": "yo",
+          "time": 1785261752283
+        },
+        {
+          "sender": "matu1",
+          "message": "stfu",
+          "time": 1785261764133
+        },
+        {
+          "sender": "matu1",
+          "message": "🔥🔥🔥",
+          "time": 1785261767170
+        }
+      ],
+      "matu5": [
+        {
+          "sender": "matu5",
+          "message": "hey!",
+          "time": 1785261492976
+        },
+        {
+          "sender": "matu5",
+          "message": "❤️",
+          "time": 1785261494700
+        }
+      ]
+    },
+    "sentRequests": []
+  },
+  {
+    "username": "matu5",
+    "password": "$2b$10$59Xm5vA5fM15HK2DNBp6Ce.2JwiwKn18Bd3e0VeKHxTljkmr2Wyli",
+    "avatar": "M",
+    "friends": [
+      "matu3"
     ],
-    "chats": {}
+    "requests": [],
+    "chats": {
+      "matu3": [
+        {
+          "sender": "matu5",
+          "message": "hey!",
+          "time": 1785261492976
+        },
+        {
+          "sender": "matu5",
+          "message": "❤️",
+          "time": 1785261494700
+        }
+      ]
+    },
+    "sentRequests": []
   }
 ]

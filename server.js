@@ -2,19 +2,32 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const fs = require("fs");
 
+
 const app = express();
+
 
 app.use(express.static(__dirname));
 app.use(express.json());
 
 
+
 const USERS_FILE = "users.json";
 
 
+
+
 // Create users file
+
 if(!fs.existsSync(USERS_FILE)){
-    fs.writeFileSync(USERS_FILE,"[]");
+
+    fs.writeFileSync(
+        USERS_FILE,
+        "[]"
+    );
+
 }
+
+
 
 
 
@@ -25,6 +38,8 @@ function getUsers(){
     );
 
 }
+
+
 
 
 
@@ -41,91 +56,162 @@ function saveUsers(users){
 
 
 
+
+// Repair old accounts
+
+function repairUser(user){
+
+    if(!user.friends)
+        user.friends=[];
+
+
+    if(!user.requests)
+        user.requests=[];
+
+
+    if(!user.sentRequests)
+        user.sentRequests=[];
+
+
+    if(!user.chats)
+        user.chats={};
+
+
+    if(!user.avatar)
+        user.avatar=user.username[0].toUpperCase();
+
+
+}
+
+
+
+
+
+
+
+
+
 // =====================
 // REGISTER
 // =====================
 
+
 app.post("/register", async(req,res)=>{
 
 
-    const {username,password}=req.body;
+const {username,password}=req.body;
 
 
 
-    if(!/^[A-Za-z0-9]{3,15}$/.test(username)){
-
-        return res.json({
-            success:false,
-            message:"Username must be 3-15 letters and numbers only"
-        });
-
-    }
+if(!/^[A-Za-z0-9]{3,15}$/.test(username)){
 
 
+return res.json({
 
-    if(password.length < 8){
+success:false,
 
-        return res.json({
-            success:false,
-            message:"Password must be at least 8 characters"
-        });
+message:"Username must be 3-15 letters and numbers only"
 
-    }
+});
+
+
+}
 
 
 
-    const users=getUsers();
+
+
+if(password.length < 8){
+
+
+return res.json({
+
+success:false,
+
+message:"Password must be at least 8 characters"
+
+});
+
+
+}
 
 
 
-    if(users.find(u=>u.username===username)){
-
-        return res.json({
-            success:false,
-            message:"Username already exists"
-        });
-
-    }
 
 
 
-    const hashedPassword =
-    await bcrypt.hash(password,10);
+const users=getUsers();
 
 
 
-    users.push({
+if(users.find(u=>u.username===username)){
 
-        username,
 
-        password:hashedPassword,
+return res.json({
 
-        avatar:username[0].toUpperCase(),
+success:false,
 
-        friends:[],
+message:"Username already exists"
 
-        requests:[],
+});
 
-        chats:{}
 
-    });
+}
 
 
 
-    saveUsers(users);
 
 
 
-    res.json({
+const hashedPassword =
+await bcrypt.hash(password,10);
 
-        success:true,
 
-        message:"Account created!"
 
-    });
+
+
+users.push({
+
+username,
+
+password:hashedPassword,
+
+avatar:username[0].toUpperCase(),
+
+friends:[],
+
+requests:[],
+
+sentRequests:[],
+
+chats:{}
 
 
 });
+
+
+
+
+
+
+saveUsers(users);
+
+
+
+res.json({
+
+success:true,
+
+message:"Account created!"
+
+});
+
+
+
+});
+
+
+
 
 
 
@@ -138,170 +224,243 @@ app.post("/register", async(req,res)=>{
 // LOGIN
 // =====================
 
+
 app.post("/login",async(req,res)=>{
 
 
-    const {username,password}=req.body;
-
-
-    const users=getUsers();
+const {username,password}=req.body;
 
 
 
-    const user =
-    users.find(
-        u=>u.username===username
-    );
+const users=getUsers();
 
 
 
-    if(!user){
-
-        return res.json({
-
-            success:false,
-
-            message:"Account not found"
-
-        });
-
-    }
+const user=users.find(
+u=>u.username===username
+);
 
 
 
-    const correct =
-    await bcrypt.compare(
-        password,
-        user.password
-    );
+
+if(!user){
+
+
+return res.json({
+
+success:false,
+
+message:"Account not found"
+
+});
+
+
+}
 
 
 
-    if(!correct){
-
-        return res.json({
-
-            success:false,
-
-            message:"Wrong password"
-
-        });
-
-    }
 
 
 
-    // Fix old accounts
 
-    if(!user.avatar)
-        user.avatar=username[0].toUpperCase();
-
-
-    if(!user.friends)
-        user.friends=[];
-
-
-    if(!user.requests)
-        user.requests=[];
-
-
-    if(!user.chats)
-        user.chats={};
-
-
-    saveUsers(users);
+const correct =
+await bcrypt.compare(
+password,
+user.password
+);
 
 
 
-    res.json({
-
-        success:true,
-
-        user:{
-
-            username:user.username,
-
-            avatar:user.avatar
-
-        }
-
-    });
 
 
+if(!correct){
+
+
+return res.json({
+
+success:false,
+
+message:"Wrong password"
+
+});
+
+
+}
+
+
+
+
+
+
+repairUser(user);
+
+
+saveUsers(users);
+
+
+
+
+
+res.json({
+
+success:true,
+
+user:{
+
+username:user.username,
+
+avatar:user.avatar
+
+}
 
 });
 
 
 
-
-
-
-
-
+});
 // =====================
 // SEND FRIEND REQUEST
 // =====================
 
+
 app.post("/send-request",(req,res)=>{
 
 
-    const {from,to}=req.body;
+const {from,to}=req.body;
 
 
-    const users=getUsers();
-
-
-
-    const receiver =
-    users.find(
-        u=>u.username===to
-    );
+const users=getUsers();
 
 
 
-    if(!receiver){
-
-        return res.json({
-
-            success:false,
-
-            message:"User not found"
-
-        });
-
-    }
+const sender =
+users.find(
+u=>u.username===from
+);
 
 
 
-    if(receiver.requests.includes(from)){
-
-        return res.json({
-
-            success:false,
-
-            message:"Request already sent"
-
-        });
-
-    }
+const receiver =
+users.find(
+u=>u.username===to
+);
 
 
 
-    receiver.requests.push(from);
+
+
+if(!sender || !receiver){
+
+
+return res.json({
+
+success:false,
+
+message:"User not found"
+
+});
+
+
+}
 
 
 
-    saveUsers(users);
+
+
+if(from===to){
+
+
+return res.json({
+
+success:false,
+
+message:"You cannot add yourself"
+
+});
+
+
+}
 
 
 
-    res.json({
 
-        success:true,
 
-        message:"Friend request sent!"
 
-    });
+repairUser(sender);
+
+repairUser(receiver);
+
+
+
+
+
+
+if(sender.friends.includes(to)){
+
+
+return res.json({
+
+success:false,
+
+message:"Already friends"
+
+});
+
+
+}
+
+
+
+
+
+
+
+if(sender.sentRequests.includes(to)){
+
+
+return res.json({
+
+success:false,
+
+message:"Request already sent"
+
+});
+
+
+}
+
+
+
+
+
+
+
+
+receiver.requests.push(from);
+
+
+sender.sentRequests.push(to);
+
+
+
+
+
+
+
+saveUsers(users);
+
+
+
+
+
+res.json({
+
+success:true,
+
+message:"Friend request sent!"
+
+});
+
 
 
 });
@@ -313,66 +472,180 @@ app.post("/send-request",(req,res)=>{
 
 
 
+
+
+
 // =====================
-// GET FRIEND REQUESTS
+// GET REQUESTS
 // =====================
+
 
 app.post("/get-requests",(req,res)=>{
 
 
-    const {username}=req.body;
+const {username}=req.body;
 
 
-    const users=getUsers();
-
-
-    const user =
-    users.find(
-        u=>u.username===username
-    );
+const users=getUsers();
 
 
 
-    let requests=[];
+const user =
+users.find(
+u=>u.username===username
+);
 
 
 
-    user.requests.forEach(name=>{
+
+if(!user){
 
 
-        const person =
-        users.find(
-            u=>u.username===name
-        );
+return res.json({
+
+success:false,
+
+requests:[]
+
+});
 
 
-        if(person){
-
-            requests.push({
-
-                username:person.username,
-
-                avatar:person.avatar
-
-            });
-
-        }
-
-
-    });
+}
 
 
 
-    res.json({
 
-        success:true,
 
-        requests
+repairUser(user);
 
-    });
+
+
+
+
+let requests=[];
+
+
+
+
+
+user.requests.forEach(name=>{
+
+
+const person =
+users.find(
+u=>u.username===name
+);
+
+
+
+
+if(person){
+
+
+requests.push({
+
+username:person.username,
+
+avatar:person.avatar
+
+});
+
+
+}
 
 
 });
+
+
+
+
+
+res.json({
+
+success:true,
+
+requests
+
+});
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+// =====================
+// GET SENT REQUESTS
+// =====================
+
+
+app.post("/get-sent-requests",(req,res)=>{
+
+
+const {username}=req.body;
+
+
+const users=getUsers();
+
+
+
+const user =
+users.find(
+u=>u.username===username
+);
+
+
+
+
+
+if(!user){
+
+
+return res.json({
+
+success:false,
+
+sentRequests:[]
+
+});
+
+
+}
+
+
+
+
+
+repairUser(user);
+
+
+
+
+
+res.json({
+
+success:true,
+
+sentRequests:user.sentRequests
+
+});
+
+
+
+});
+
+
+
 
 
 
@@ -385,70 +658,124 @@ app.post("/get-requests",(req,res)=>{
 // ACCEPT REQUEST
 // =====================
 
+
 app.post("/accept-request",(req,res)=>{
 
 
-    const {username,requester}=req.body;
+const {username,requester}=req.body;
 
 
-    const users=getUsers();
-
-
-
-    const user =
-    users.find(
-        u=>u.username===username
-    );
-
-
-    const other =
-    users.find(
-        u=>u.username===requester
-    );
+const users=getUsers();
 
 
 
-    if(!user || !other){
-
-        return res.json({
-
-            success:false
-
-        });
-
-    }
+const user =
+users.find(
+u=>u.username===username
+);
 
 
 
-    user.requests =
-    user.requests.filter(
-        x=>x!==requester
-    );
+const other =
+users.find(
+u=>u.username===requester
+);
 
 
 
-    if(!user.friends.includes(requester))
-        user.friends.push(requester);
+
+
+if(!user || !other){
+
+
+return res.json({
+
+success:false
+
+});
+
+
+}
 
 
 
-    if(!other.friends.includes(username))
-        other.friends.push(username);
 
 
 
-    saveUsers(users);
+
+repairUser(user);
+
+repairUser(other);
 
 
 
-    res.json({
 
-        success:true
 
-    });
+
+// remove request
+
+user.requests =
+user.requests.filter(
+x=>x!==requester
+);
+
+
+
+
+
+// remove sent request
+
+other.sentRequests =
+other.sentRequests.filter(
+x=>x!==username
+);
+
+
+
+
+
+
+
+
+// add friends
+
+if(!user.friends.includes(requester))
+
+user.friends.push(requester);
+
+
+
+
+
+if(!other.friends.includes(username))
+
+other.friends.push(username);
+
+
+
+
+
+
+
+saveUsers(users);
+
+
+
+
+
+
+res.json({
+
+success:true
+
+});
+
 
 
 });
+
+
+
 
 
 
@@ -461,111 +788,199 @@ app.post("/accept-request",(req,res)=>{
 // DECLINE REQUEST
 // =====================
 
+
 app.post("/decline-request",(req,res)=>{
 
 
-    const {username,requester}=req.body;
+const {username,requester}=req.body;
 
 
-    const users=getUsers();
-
-
-    const user =
-    users.find(
-        u=>u.username===username
-    );
+const users=getUsers();
 
 
 
-    user.requests =
-    user.requests.filter(
-        x=>x!==requester
-    );
+const user =
+users.find(
+u=>u.username===username
+);
 
 
 
-    saveUsers(users);
+const other =
+users.find(
+u=>u.username===requester
+);
 
 
 
-    res.json({
 
-        success:true
 
-    });
+if(!user || !other){
 
+
+return res.json({
+
+success:false
+
+});
+
+
+}
+
+
+
+
+
+
+repairUser(user);
+
+repairUser(other);
+
+
+
+
+
+
+user.requests =
+user.requests.filter(
+x=>x!==requester
+);
+
+
+
+
+
+
+other.sentRequests =
+other.sentRequests.filter(
+x=>x!==username
+);
+
+
+
+
+
+
+
+saveUsers(users);
+
+
+
+
+
+res.json({
+
+success:true
 
 });
 
 
 
-
-
-
-
+});
 
 // =====================
 // GET FRIENDS
 // =====================
 
+
 app.post("/get-friends",(req,res)=>{
 
 
-    const {username}=req.body;
+const {username}=req.body;
 
 
-    const users=getUsers();
-
-
-    const user =
-    users.find(
-        u=>u.username===username
-    );
+const users=getUsers();
 
 
 
-    let friends=[];
+const user =
+users.find(
+u=>u.username===username
+);
 
 
 
-    user.friends.forEach(name=>{
 
 
-        const friend =
-        users.find(
-            u=>u.username===name
-        );
+if(!user){
 
 
+return res.json({
 
-        if(friend){
+success:false,
 
-            friends.push({
+friends:[]
 
-                username:friend.username,
-
-                avatar:friend.avatar
-
-            });
-
-        }
+});
 
 
-    });
+}
 
 
 
-    res.json({
 
-        success:true,
 
-        friends
 
-    });
+repairUser(user);
+
+
+
+
+
+let friends=[];
+
+
+
+
+
+user.friends.forEach(name=>{
+
+
+const friend =
+users.find(
+u=>u.username===name
+);
+
+
+
+
+
+if(friend && friend.username!==username){
+
+
+friends.push({
+
+username:friend.username,
+
+avatar:friend.avatar
+
+});
+
+
+}
 
 
 
 });
+
+
+
+
+
+
+res.json({
+
+success:true,
+
+friends
+
+});
+
+
+
+});
+
+
 
 
 
@@ -579,104 +994,128 @@ app.post("/get-friends",(req,res)=>{
 // SEND MESSAGE
 // =====================
 
+
 app.post("/send-message",(req,res)=>{
 
 
-    const {from,to,message}=req.body;
-
-
-    const users=getUsers();
+const {from,to,message}=req.body;
 
 
 
-    const sender =
-    users.find(
-        u=>u.username===from
-    );
-
-
-    const receiver =
-    users.find(
-        u=>u.username===to
-    );
+const users=getUsers();
 
 
 
-    if(!sender || !receiver){
-
-        return res.json({
-
-            success:false,
-
-            message:"User not found"
-
-        });
-
-    }
+const sender =
+users.find(
+u=>u.username===from
+);
 
 
 
-    if(!sender.chats)
-        sender.chats={};
-
-
-
-    if(!sender.chats[to])
-        sender.chats[to]=[];
-
-
-
-
-    sender.chats[to].push({
-
-        sender:from,
-
-        message:message,
-
-        time:Date.now()
-
-    });
+const receiver =
+users.find(
+u=>u.username===to
+);
 
 
 
 
 
-    if(!receiver.chats)
-        receiver.chats={};
+if(!sender || !receiver){
+
+
+return res.json({
+
+success:false,
+
+message:"User not found"
+
+});
+
+
+}
 
 
 
-    if(!receiver.chats[from])
-        receiver.chats[from]=[];
+
+
+repairUser(sender);
+
+repairUser(receiver);
 
 
 
 
 
-    receiver.chats[from].push({
 
-        sender:from,
+if(!sender.chats[to])
 
-        message:message,
-
-        time:Date.now()
-
-    });
+sender.chats[to]=[];
 
 
 
-    saveUsers(users);
+
+if(!receiver.chats[from])
+
+receiver.chats[from]=[];
 
 
 
-    res.json({
 
-        success:true
 
-    });
+
+
+const newMessage={
+
+
+sender:from,
+
+
+message:message,
+
+
+time:Date.now()
+
+
+};
+
+
+
+
+
+
+
+sender.chats[to].push(newMessage);
+
+
+
+receiver.chats[from].push(newMessage);
+
+
+
+
+
+
+saveUsers(users);
+
+
+
+
+
+res.json({
+
+success:true
+
+});
+
 
 
 });
+
+
+
+
 
 
 
@@ -689,44 +1128,61 @@ app.post("/send-message",(req,res)=>{
 // GET MESSAGES
 // =====================
 
+
 app.post("/get-messages",(req,res)=>{
 
 
-    const {user,friend}=req.body;
-
-
-    const users=getUsers();
-
-
-    const account =
-    users.find(
-        u=>u.username===user
-    );
+const {user,friend}=req.body;
 
 
 
-    if(!account){
-
-        return res.json({
-
-            success:false,
-
-            messages:[]
-
-        });
-
-    }
+const users=getUsers();
 
 
 
-    res.json({
+const account =
+users.find(
+u=>u.username===user
+);
 
-        success:true,
 
-        messages:
-        account.chats?.[friend] || []
 
-    });
+
+
+if(!account){
+
+
+return res.json({
+
+success:false,
+
+messages:[]
+
+});
+
+
+}
+
+
+
+
+
+repairUser(account);
+
+
+
+
+
+
+res.json({
+
+success:true,
+
+messages:
+account.chats[friend] || []
+
+});
+
 
 
 });
@@ -736,11 +1192,25 @@ app.post("/get-messages",(req,res)=>{
 
 
 
+
+
+
+
+
+// =====================
+// HOME
+// =====================
 
 
 app.get("/",(req,res)=>{
 
-    res.sendFile(__dirname+"/index.html");
+
+res.sendFile(
+
+__dirname + "/index.html"
+
+);
+
 
 });
 
@@ -748,10 +1218,23 @@ app.get("/",(req,res)=>{
 
 
 
+
+
+
+
+// =====================
+// START SERVER
+// =====================
+
+
 app.listen(3000,()=>{
 
-    console.log(
-        "Server running on http://localhost:3000"
-    );
+
+console.log(
+
+"Server running on http://localhost:3000"
+
+);
+
 
 });
